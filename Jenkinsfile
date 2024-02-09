@@ -11,14 +11,14 @@ pipeline{
             tools{
                 jdk 'JDK_8_UBUNTU'
             }
-            steps{
-                sh 'mvn package'
-            }
+                steps{
+                    sh 'mvn package'
+                }
         }
         stage('post build'){
             steps{
-                archiveArtifacts artifacts: '**/target/gameoflife.war',
-                        junit testResults: '**/surefire-reports/TEST-*.xml'
+                archiveArtifacts artifacts: '**/target/gameoflife.war'
+                junit testResults: '**/surefire-reports/TEST-*.xml'
             }
         }
     }
