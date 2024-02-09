@@ -8,13 +8,16 @@ pipeline{
              }
         }
         stage('package'){
+            environment{
+                PATH = '/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH'
+            }
             steps{
                 sh 'mvn package'
             }
         }
         stage('post build'){
             steps{
-                archiveArtifacts artifacts: '**/target.gameoflife.war',
+                archiveArtifacts artifacts: '**/target/gameoflife.war',
                 onlyIfSuccessful: true,
                 junit testResults: '**/surefire-reports/TEST-*.xml'
             }
